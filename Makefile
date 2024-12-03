@@ -6,7 +6,7 @@
 #    By: vabacher <vabacher@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/01 11:50:20 by vabacher          #+#    #+#              #
-#    Updated: 2024/12/01 11:51:51 by vabacher         ###   ########.fr        #
+#    Updated: 2024/12/03 09:28:13 by vabacher         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,10 +29,18 @@ SRC = ft_isalpha.c ft_isdigit.c ft_strlen.c ft_isalnum.c \
 		ft_strmapi.c ft_striteri.c ft_putchar_fd.c ft_putstr_fd.c \
 		ft_putendl_fd.c ft_putnbr_fd.c
 
-# Objects files
+# Source for bonus (from what)
+BONUS = ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c \
+					ft_lstdelone.c ft_lstiter.c ft_lstlast.c \
+					ft_lstmap.c ft_lstnew.c ft_lstsize.c
+
+# Object files
 OBJ = $(SRC:.c=.o)
 
+# Object files for bonus
+BONUS_OBJ = $(BONUS:.c=.o)
 # Rules
+
 # Default rule
 all: $(NAME)
 
@@ -47,7 +55,7 @@ $(NAME): $(OBJ)
 
 # Rule to clean object files
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(BONUS_OBJ)
 
 # Rule to clean all files
 fclean: clean
@@ -56,5 +64,10 @@ fclean: clean
 # Rule to rebuild
 re: fclean all
 
+# Rule for bonus
+bonus: $(OBJ) $(BONUS_OBJ)
+	ar rcs $(NAME) $(OBJ) $(BONUS_OBJ)
+	ranlib $(NAME)
+
 # Phony targets
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
